@@ -1,0 +1,8 @@
+INDEX VERSION 1.126+/Users/jaimeguzman/github_local_repo/datamining/DataMining_course/tarea2.class/stanford-postagger/.metadata/.plugins/org.eclipse.jdt.core
+2334136957.index
+1190218211.index
+562513493.index
+2924670092.index
+11394429.index
+1683764118.index
+248383432.index

@@ -1,0 +1,21 @@
+
+import edu.stanford.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class testPostagger {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		System.out.println("HOLA");
+		
+	}
+
+}

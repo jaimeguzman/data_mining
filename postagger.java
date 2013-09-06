@@ -29,45 +29,49 @@ static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ"
 
 
 		System.out.println(  "POS DAMN TAGGER" );
-
 		String arrayAux[] = texto.split(" ");
 
 
 		int p =0;
 		do{
 			System.out.print ( posTaggerTags[p]+ " " );
-			p++;
+			
+			for( int j=0; j < arrayAux.length -1; j++){
+				String stringIterado = arrayAux[j];
 
+					if( stringIterado.endsWith( posTaggerTags[j] )  ){
+
+						System.out.println( " "+posTaggerTags[j]+ conteoPatron(texto, posTaggerTags[j]  ) );
+
+					}
+			}	
+
+
+
+			p++;
 		}while( p < posTaggerTags.length );
 
 
 
 //		System.out.println(  texto ) ;
 //
+
+
+/*
 		for (int i =0; i<arrayAux.length; i++  ){
-
-
 			//System.out.println( arrayAux[i] );
-
 			String stringIterado = arrayAux[i];
-
 			if( stringIterado.endsWith( "_JJ" )  == true ){ 
-
 			//System.out.println( "EXITO" );
 			//System.out.println( arrayAux[i] );
-
-
-
-
-
-
 		}
+		
 
 
 
 
 
-		}
+		}*/
 
 
 		System.out.println( "conteoPatron :::" + conteoPatron(texto, "_JJ" ) );
