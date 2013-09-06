@@ -1,4 +1,4 @@
-
+import java.util.*; 
 import java.io.*;
 
 
@@ -28,35 +28,65 @@ static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ"
 
 
 
-		System.out.println(  "POS DAMN TAGGER" );
+
 		String arrayAux[] = texto.split(" ");
 
 
-		int p =0;
-		do{
-			System.out.print ( posTaggerTags[p]+ " " );
-			
-			for( int j=0; j < arrayAux.length -1; j++){
-				String stringIterado = arrayAux[j];
+		if( args[0].equals( "op1") ){
 
-					if( stringIterado.endsWith( posTaggerTags[j] )  ){
+			System.out.println(  "POS DAMN TAGGER" );
+			int p =0;
+			do{
+			//	This iteration count all 36 tag and ocurrency
+				System.out.println( " "+posTaggerTags[p]+" " +conteoPatron(texto, posTaggerTags[p]  ) );
 
-						System.out.println( " "+posTaggerTags[j]+ conteoPatron(texto, posTaggerTags[j]  ) );
-
-					}
-			}	
+				p++;
+			}while( p < posTaggerTags.length );
 
 
 
-			p++;
-		}while( p < posTaggerTags.length );
+		}
+
+
+		if( args[0].equals( "op2") ){
+
+
+			String[] words=texto.split(" ");
+			HashMap<String,Integer> frequencies=new HashMap<String,Integer>();
+			for (String w: Arrays.asList(words)){
+			  Integer num=frequencies.get(w);
+			  if (num!=null)
+			    frequencies.put(w,num+1);
+			  else
+			    frequencies.put(w,1);
+			}
+
+			Set set = frequencies.entrySet(); 
+// Get an iterator 
+Iterator i = set.iterator(); 
+// Display elements 
+while(i.hasNext()) { 
+Map.Entry me = (Map.Entry)i.next(); 
+System.out.print(me.getKey() + ": "); 
+System.out.println(me.getValue() ); 
+} 
+System.out.println(); 
+
+
+
+		} // End if op2
+
+
+
+
+
+
+
+
 
 
 
 //		System.out.println(  texto ) ;
-//
-
-
 /*
 		for (int i =0; i<arrayAux.length; i++  ){
 			//System.out.println( arrayAux[i] );
@@ -66,26 +96,29 @@ static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ"
 			//System.out.println( arrayAux[i] );
 		}
 		
-
-
-
-
-
 		}*/
 
 
-		System.out.println( "conteoPatron :::" + conteoPatron(texto, "_JJ" ) );
-
+	//	System.out.println( "conteoPatron :::" + conteoPatron(texto, "_JJ" ) );
 
 	}
+
+
+/*
+*
+*	This return a count of some pattern in a text
+*
+*/
+
 
 	public static int conteoPatron(String cadena, String patron){
 
 		int count = 0, start = 0, len = patron.length();
 			
 		while((start = cadena.indexOf(patron, start+=len)) > -1) count++;
+				return count;
+	
 
-		return count;
 	}
 
 
