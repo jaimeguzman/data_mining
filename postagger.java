@@ -8,6 +8,7 @@ import java.util.Scanner;
 *
 * Por hacer pantalla de estadisticas
 * http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
+* HACER STOP WORDS
 */
 
 
@@ -20,6 +21,10 @@ static String texto = " there_EX must_MD be_VB some_DT word_NN today_NN from_IN 
 //array with the suffix for work
 
 static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ", "_JJR", "_JJS", "_LS", "_MD", "_NN", "_NNS", "_NNP", "_NNPS", "_PDT", "_POS", "_PRP", "_PRP$", "_RB", "_RBR", "_RBS", "_RP", "_SYM", "_TO", "_UH", "_VB", "_VBD", "_VBG", "_VBN", "_VBP", "_VBZ", "_WDT", "_WP", "_WP$", "_WRB" };
+
+
+
+
 
 
 
@@ -50,7 +55,7 @@ public static void frecuencia( String data){
 							System.out.println(me.getValue() ); 
 
 						 }
-
+							//System.out.print("< "+ me.getKey() + ": "+me.getValue()+" > \n"); 
 							System.out.print("< "+ me.getKey() + ": "+me.getValue()+" > \n"); 
 				
 
@@ -85,7 +90,7 @@ public static void frecuencia( String data){
                 list.add( line );	
 
 		       frecuencia( line );	
-                //System.out.print( line );
+                //System.out.print(" "+ line+" " );
               
             }
             //granLine =   line +granLine;
