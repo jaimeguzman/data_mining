@@ -1,6 +1,8 @@
 import java.util.*; 
 import java.io.*;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
 *
@@ -12,7 +14,7 @@ import java.io.*;
 public class postagger{
 
 //this array it will change for a input data text
-static String texto = "12-tone_JJ matrix_NN 1879_NNS silver_JJ dollar_NN worth_IN a_DT 2_CD z_SYM add_VB name_NN to_TO the_DT do_VBP not_RB call_VB list_NN address_NN and_CC phone_NN numbers_NNS all_DT my_PRP$ girls_NNS lyrics_NNS by_IN kiki_NN palmer_NN ancient_JJ roman_NN names_NNS aol_NN map_NN &_CC directions_NNS aol_NN systray_NN asphalt_NN cowboy_NN billboard_NN music_NN charts_NNS biracial_JJ denver_NN blank_JJ map_NN of_IN the_DT middle_JJ east_JJ boca_NN ale_NN house_NN bonethugs-n-harmony_JJ ft_NN philcollins_NNS take_VBP me_PRP home_NN lyric_NN burn_VBP free_JJ music_NN to_TO cd_NN cacner_NN astrology_NN carmans_NNS photo_NN source_NN catalytic_JJ convertor_NN catholic_JJ standard_JJ archives_NNS washington_NNP d.c._NNP cc_NN times_NNS cedar_NN rapids_VBZ library_NN certified_VBN case_NN manager_NN chanel_NN layouts_NNS channel_VBP 13_CD pbs_NNS chase_JJ charge_NN chat_NN in_IN louisiana_NN check_NN on_IN a_DT business_NN license_NN chicago_NNP sun_NN times_NNS city_NN guide_NN chicago_NNP clause_NN cleaning_NN services_NNS in_IN warminster_NN pa_NN clothing_NN department_NN stores_NNS condemned_VBN pc_NN game_NN construction_NN jobs_NNS for_IN the_DT eastern_JJ shore_NN contractors_NNS licenses_NNS crazy_JJ town_NN butterfly_NN create_VB my_PRP$ own_JJ street_NN car_NN freeware_NN cruel_JJ to_TO be_VB kind_JJ custom_NN motorcycles_NNS on_IN ebay_NN dallas_NN interacial_JJ dating_VBG dating_VBG durham_NN nc_NN digital_JJ pictures_NNS for_IN downloading_VBG ding_JJ ding_NN dong_NN download_NN dance_NN circuit_NN download_NN microsoft_NN service_NN pack_NN 2_CD downloadable_JJ rpg_NN fgcu_NN applications_NNS final_JJ fantasy_NN x_CC cheat_VB codes_NNS find_VB flash_NN fredricksburg_NN va_NN lawyer_NN free_JJ birthday_NN dog_NN clipart_JJ free_JJ dj_NN mix_NN vibes_NNS free_JJ downloads_NNS song_NN games_NNS free_JJ myspace_NN layouts_NNS fruit_NN baskets_NNS kyo_VBP free_JJ online_JJ war_NN games_NNS freegames_NNS msn_NN gallaghers_NNS pizza_NN indiana_NN gwinnett_NN scan_VB hawthorn_NN height_NN -_: saying_VBG sorry_JJ hemet_NN chrysler_NN center_NN homes_NNS in_IN melbourne_NN hpinkjet_NN printer_NN drivers_NNS i_FW want_VBP dick_NN i_FW 'm_VBP gon_VBG na_TO make_VB you_PRP proud_JJ import_NN export_NN licensing_NN information_NN in_IN love_NN with_IN a_DT stripper_NN remix_NN lyrics_NNS with_IN paul_NN wall_NN indian_JJ sitar_NN guitar_NN chords_NNS ins_NNS location_NN intel_NN training_NN kah-nee-tah_JJ resort_NN weather_NN kodak_NN easy_JJ share_NN print_NN service_NN landforms_NNS in_IN peru_NN led_VBD zepplin_NN songs_NNS lion_NN coloring_VBG pages_NNS liquor_NN buddy_NN icon_NN listen_VBP song_NN hate_VB me_PRP today_NN liviamedia_NN local_JJ telephone_NN line_NN lullabye_NN lyrics_NNS billy_VBP joel_NN lyrics_NNS for_IN genecide_NN front_NN 242_CD lyrics_NNS for_IN the_DT used_VBN lunacy_NN fringe_NN lyrics_NNS live_VBP dance_NN with_IN you_PRP lyrics_NNS summer_NN in_IN the_DT city_NN lyrics_NNS to_TO closing_VBG time_NN lyrics_NNS to_TO i_FW believe_VBP by_IN blessid_NN union_NN of_IN soul_NN lyrics_NNS to_TO minority_NN lyrics_NNS to_TO the_DT wiz_NN -_: charlie_NN smalls_NNS lyrics_NNS -_: cause_VB your_PRP$ the_DT only_RB one_CD for_IN me_PRP magic_JJ dvd_NN ripper_NN 3.0_CD serial_NN man_NN stuck_VBN on_IN island_NN screensaver_NN map_NN of_IN roger_NN ar_NN map_NN of_IN the_DT south_NN of_IN france_NN mazda_NN rx8_NN photo_NN microsoft_NN office_NN beta_NN mobile_JJ gaming_NN msyace_NN my_PRP$ space_NN wallpapers_NNS myspace_JJ custom_NN backgrounds_NNS myspace_VBP kiss_NN comments_NNS ";
+static String texto = " there_EX must_MD be_VB some_DT word_NN today_NN from_IN my_PRP$ boyfriend_NN so_RB far_RB away_RB  ._. gov_NN websites_NNS 03_CD audi_NNS s6_NN 1_CD cemetery_NN rd_NN derry_NN nh_NN 10_CD reasons_NNS soccer_NN is_VBZ better_JJR than_IN football_NN 11_CD cooper_NN avenue_NN unit_NN 107_CD long_JJ branch_NN 18_CD and_CC over_IN clubs_NNS ";
 
 
 //array with the suffix for work
@@ -23,18 +25,116 @@ static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ"
 
 
 
+public static void frecuencia( String data){
+
+			String[] words=data.split(" ");
+			HashMap<String,Integer> frequencies=new HashMap<String,Integer>();
+			for (String w: Arrays.asList(words)){
+			  Integer num=frequencies.get(w);
+			  if (num!=null)
+			    frequencies.put(w,num+1);
+			  else
+			    frequencies.put(w,1);
+			}
+
+			Set set = frequencies.entrySet(); 
+			// Get an iterator 
+			Iterator i = set.iterator(); 
+			// Display elements from the hashmap
+				while(i.hasNext()) { 
+					Map.Entry me = (Map.Entry)i.next(); 
+
+						if( (Integer)me.getValue() > 10000){  //System.out.println("EO");
+
+							System.out.print(me.getKey() + ": "); 
+							System.out.println(me.getValue() ); 
+
+						 }
+
+							System.out.print("< "+ me.getKey() + ": "+me.getValue()+" > \n"); 
+				
+
+
+				} 
+			System.out.println(); 
+
+
+
+
+}
+
 
 	public static void main (String args[]){
 
+
+
+	  // Location of file to read
+        File file = new File( "RES_List.txt" );
+ 		String line =""; 
+ 		String granLine =""; 
+
+		ArrayList<String> list = new ArrayList<String>(); 		
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+
+
+            	//Hay que procesar la linea para poder quitar las stop words
+
+                 line = scanner.nextLine();
+                list.add( line );	
+
+		       frecuencia( line );	
+                //System.out.print( line );
+              
+            }
+            //granLine =   line +granLine;
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+         
+
+
+
+
+  // Location of file to read
+		/*
+        File file = new File("INF_lineALL.txt");
+ 		String line ="";
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                 line = scanner.nextLine();
+                //System.out.println(line);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+*/
+
+       // texto = line;
 
 
 
 		String arrayAux[] = texto.split(" ");
 
 
+		if( args[0].equals( "help") ){
+
+				System.out.println( "WAZEEEE" );
+
+
+		}
+
+
+
 		if( args[0].equals( "op1") ){
 
-			System.out.println(  "POS DAMN TAGGER" );
+		//	System.out.println(  "POS DAMN TAGGER" );
 			int p =0;
 			do{
 			//	This iteration count all 36 tag and ocurrency
@@ -62,15 +162,22 @@ static String[] posTaggerTags = {"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ"
 			}
 
 			Set set = frequencies.entrySet(); 
-// Get an iterator 
-Iterator i = set.iterator(); 
-// Display elements 
-while(i.hasNext()) { 
-Map.Entry me = (Map.Entry)i.next(); 
-System.out.print(me.getKey() + ": "); 
-System.out.println(me.getValue() ); 
-} 
-System.out.println(); 
+			// Get an iterator 
+			Iterator i = set.iterator(); 
+			// Display elements from the hashmap
+				while(i.hasNext()) { 
+					Map.Entry me = (Map.Entry)i.next(); 
+
+						if( (Integer)me.getValue() > 1){  //System.out.println("EO");
+
+							System.out.print(me.getKey() + ": "); 
+							System.out.println(me.getValue() ); 
+
+						 }
+
+
+				} 
+			System.out.println(); 
 
 
 
@@ -101,7 +208,7 @@ System.out.println();
 
 	//	System.out.println( "conteoPatron :::" + conteoPatron(texto, "_JJ" ) );
 
-	}
+	}//End main method
 
 
 /*
@@ -109,8 +216,6 @@ System.out.println();
 *	This return a count of some pattern in a text
 *
 */
-
-
 	public static int conteoPatron(String cadena, String patron){
 
 		int count = 0, start = 0, len = patron.length();
