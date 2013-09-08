@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="edu.stanford.nlp.tagger.maxent.MaxentTagger"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.HasWord"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.TaggedWord"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.Sentence"/>
+</qualifiedTypeNameHistroy>

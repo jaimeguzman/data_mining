@@ -244,3 +244,11 @@ java.lang.NullPointerException
 	at org.eclipse.wst.common.frameworks.internal.datamodel.DataModelPausibleOperationImpl.execute(DataModelPausibleOperationImpl.java:207)
 	at org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard$1CatchThrowableRunnableWithProgress.run(DataModelWizard.java:220)
 	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+
+!ENTRY org.eclipse.ui.ide 4 4 2013-09-07 23:59:40.858
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2013-09-07 23:59:40.880
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2013-09-07 23:59:40.880
+!MESSAGE The project description file (.project) for 'stanford-postagger-3.2.0-javadoc' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
