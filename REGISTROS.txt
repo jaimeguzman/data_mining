@@ -1,0 +1,47 @@
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+NAV QUERY
+
+
+
+List_NAV_line_sinSW.txt   	
+
+CON STOPWORDS hay::::: Number of words: 3331 // Mostrar una pantalla para validar
+SIN STOPWORDS ::::::::::(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: 2258
+
+- EL vector global NAV genero 2258 vector con su respectiva frecuencia
+- Ya se tiene el vector global  para esta clasificación
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+INFORMATION querys
+
+CON STOPWORS :::::  Number of words: 6812
+SIN STOPWORDS ::::: (Line217)Cantidad total de palabras, con frecuencia y sin StopWords: 3988
+
+///////////////////////////////////////////////////////////////////////////
+RESOURCES querys
+
+CON STOPWORS :::::  Number of words: 670
+SIN STOPWORDS ::::: (Line217)Cantidad total de palabras, con frecuencia y sin StopWords: 464 ///  word count = 455
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

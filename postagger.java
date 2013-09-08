@@ -186,7 +186,7 @@ static String stopwordsText[]=
 								++countTotalFrecSinSW;
 								//System.out.print("<"+me.getKey() + ","+me.getValue() +">\n"); 					
 								//System.out.print(""+me.getKey() + ","+me.getValue() +"\n"); 	
-								//System.out.print(""+me.getKey()  +"\n"); 									
+								//System.out.print(""+me.getKey()  +" \n"); 									
 							}		
 						}
 				} 
@@ -200,20 +200,89 @@ static String stopwordsText[]=
 			Iterator i3 = set3.iterator(); 
 
 			int countTotalFrecSinSWnolimit = 0;
-			System.out.print("{");
+			//System.out.print("{");
 				while(i3.hasNext()) { 
 					Map.Entry me = (Map.Entry)i3.next(); 
 
 				
 							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
 								++countTotalFrecSinSWnolimit;
-								System.out.print("<"+me.getKey() + ", "+me.getValue() +">;\n");
-								//System.out.print(me.getKey() +"\n");  		
+								//Para converitr a vector
+								//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;\n");
+								//System.out.print(me.getKey() +" ");  		
 							}			
 				}
-			System.out.print("}");	 
-			System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
+			//System.out.print("}");	 
+			//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
 			
+
+// AHora se programará que cada query forme 1 vector
+
+
+
+
+        File archivo 					= new File( args[1] );
+ 		String linea 					= ""; 
+
+		int validadorCountlineas 		= 0;
+		ArrayList<String> listAux		= new ArrayList<String>(); 		
+        
+
+
+
+
+
+        try {
+            Scanner scanner 						= new Scanner(archivo);
+			HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>();
+            while (scanner.hasNextLine()) {
+
+                linea = scanner.nextLine();
+                String[] words2=linea.split(" ");
+
+					for (String w: Arrays.asList(words2)){
+					  Integer num=frecuencia.get(w);
+					  if (num!=null)
+					    frecuencia.put(w,num+1);
+					  else
+					    frecuencia.put(w,1);
+					}
+
+				Set set4 						= frecuencia.entrySet(); 
+				Iterator i4 					= set4.iterator(); 	
+
+				System.out.print("{");
+				while(i4.hasNext()) { 
+					Map.Entry me = (Map.Entry)i4.next(); 
+								//++validadorCountlineas;
+								//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+								
+							
+							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
+								//++validadorCountlineas;
+								System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+							}
+				}
+				frecuencia.clear();
+
+			//System.out.print( linea );	
+			System.out.print("\t}\n" );	 
+			//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
+
+
+
+
+            } 
+            System.out.println();
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+  
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
