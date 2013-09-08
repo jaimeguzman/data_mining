@@ -59,7 +59,7 @@ static String stopwordsText[]=
 
 		}
 
-		System.out.println("\n(Line62) Listado de StopWords encontradas: \n");
+//		System.out.println("\n(Line62) Listado de StopWords encontradas: \n");
 		Set<String> keySet = mapStopWords.keySet();
 		Iterator<String> keySetIterator = keySet.iterator();
 
@@ -74,11 +74,11 @@ static String stopwordsText[]=
 	   		++countSW;
 		} 
 	}
-	System.out.println("\n(Line77) Total de StopWords encontradas: "+ countSW );
+//	System.out.println("\n(Line77) Total de StopWords encontradas: "+ countSW );
 
 
 
-	System.out.println("\n(Line81)Listado sin StopWords :");
+//	System.out.println("\n(Line81)Listado sin StopWords :");
 	//COn esta iteración se quitan las stopwords
 
 	int countSinSW = 1;
@@ -88,7 +88,7 @@ static String stopwordsText[]=
 			//System.out.println( key  );
 			++countSinSW;
 		}
-	System.out.println("\n(Line91)Total de palabras sin Stopwords encontradas: "+ countSinSW);
+//	System.out.println("\n(Line91)Total de palabras sin Stopwords encontradas: "+ countSinSW);
 
 
 }//End of the method
@@ -146,7 +146,7 @@ static String stopwordsText[]=
 			    frequencies.put(w,1);
 			}
 	
-			System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
+//			System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
 
 			Set set = frequencies.entrySet(); 
 			// Get an iterator 
@@ -163,12 +163,12 @@ static String stopwordsText[]=
 
 				} 
 
-			System.out.println("(Line166)Cantidad de todas las palabras con frecuencia > 1: "+ countTotalFrec);
+//			System.out.println("(Line166)Cantidad de todas las palabras con frecuencia > 1: "+ countTotalFrec);
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
+//			System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
 
 			Set set2 = frequencies.entrySet(); 
 			// Get an iterator 
@@ -178,19 +178,19 @@ static String stopwordsText[]=
 				while(i2.hasNext()) { 
 					Map.Entry me = (Map.Entry)i2.next(); 
 
-						if( (Integer)me.getValue() > 1){  //System.out.println("EO");
+						if( (Integer)me.getValue() > 2){  //System.out.println("EO");
 
 							//System.out.print(me.getKey() + ": \t\t"+me.getValue() +"\n"); 
 
 							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
 								++countTotalFrecSinSW;
-								System.out.print(me.getKey() + ": \t\t"+me.getValue() +"\n"); 							}			
-								
-						 }
-
-
+								//System.out.print("<"+me.getKey() + ","+me.getValue() +">\n"); 					
+								//System.out.print(""+me.getKey() + ","+me.getValue() +"\n"); 	
+								//System.out.print(""+me.getKey()  +"\n"); 									
+							}		
+						}
 				} 
-			System.out.println("(Line193)Cantidad de todas las palabras con frecuencia > 1 sin StopWords: "+ countTotalFrecSinSW);
+			//System.out.println("(Line193)Cantidad de todas las palabras con frecuencia > 1 sin StopWords: "+ countTotalFrecSinSW);
 
 
 
@@ -200,23 +200,20 @@ static String stopwordsText[]=
 			Iterator i3 = set3.iterator(); 
 
 			int countTotalFrecSinSWnolimit = 0;
+			System.out.print("{");
 				while(i3.hasNext()) { 
 					Map.Entry me = (Map.Entry)i3.next(); 
 
 				
 							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
 								++countTotalFrecSinSWnolimit;
-								//System.out.print(me.getKey() + ": \t\t\t\t"+me.getValue() +"\n"); 		
-
+								System.out.print("<"+me.getKey() + ", "+me.getValue() +">;\n");
+								//System.out.print(me.getKey() +"\n");  		
 							}			
-								
-						 
-
-
-				} 
+				}
+			System.out.print("}");	 
 			System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
-			System.out.println("\n\n\n");
-
+			
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,7 +278,7 @@ static String stopwordsText[]=
 			int p =0;
 			do{
 			//	This iteration count all 36 tag and ocurrency
-				System.out.println( " "+posTaggerTags[p]+" " +conteoPatron(texto, posTaggerTags[p]  ) );
+				System.out.println( " "+posTaggerTags[p]+" " +conteoPatron(line, posTaggerTags[p]  ) );
 
 				p++;
 			}while( p < posTaggerTags.length );
