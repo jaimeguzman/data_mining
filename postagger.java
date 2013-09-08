@@ -123,11 +123,6 @@ static String stopwordsText[]=
         }
   
 
-       // texto = line;
-
-
-
-
 
 
 		if( args[0].equals( "op2") ){
@@ -146,7 +141,7 @@ static String stopwordsText[]=
 			    frequencies.put(w,1);
 			}
 	
-//			System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
+			//			System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
 
 			Set set = frequencies.entrySet(); 
 			// Get an iterator 
@@ -163,12 +158,12 @@ static String stopwordsText[]=
 
 				} 
 
-//			System.out.println("(Line166)Cantidad de todas las palabras con frecuencia > 1: "+ countTotalFrec);
+			//			System.out.println("(Line166)Cantidad de todas las palabras con frecuencia > 1: "+ countTotalFrec);
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//			System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//			System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
 
 			Set set2 = frequencies.entrySet(); 
 			// Get an iterator 
@@ -214,97 +209,129 @@ static String stopwordsText[]=
 				}
 			//System.out.print("}");	 
 			//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
-			
-
-// AHora se programará que cada query forme 1 vector
-
-
-
-
-        File archivo 					= new File( args[1] );
- 		String linea 					= ""; 
-
-		int validadorCountlineas 		= 0;
-		ArrayList<String> listAux		= new ArrayList<String>(); 		
-        
-
-
-
-
-
-        try {
-            Scanner scanner 						= new Scanner(archivo);
-			HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>();
-            while (scanner.hasNextLine()) {
-
-                linea = scanner.nextLine();
-                String[] words2=linea.split(" ");
-
-					for (String w: Arrays.asList(words2)){
-					  Integer num=frecuencia.get(w);
-					  if (num!=null)
-					    frecuencia.put(w,num+1);
-					  else
-					    frecuencia.put(w,1);
-					}
-
-				Set set4 						= frecuencia.entrySet(); 
-				Iterator i4 					= set4.iterator(); 	
-
-				System.out.print("{");
-				while(i4.hasNext()) { 
-					Map.Entry me = (Map.Entry)i4.next(); 
-								//++validadorCountlineas;
-								//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
-								
-							
-							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
-								//++validadorCountlineas;
-								System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
-							}
-				}
-				frecuencia.clear();
-
-			//System.out.print( linea );	
-			System.out.print("\t}\n" );	 
-			//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
-
-
-
-
-            } 
-            System.out.println();
-
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-  
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		} // End if op2
 
 
 
 
 
+		//En op3 dada un entrada perfecta se entrega un output en formato de CENTROIDE
+		//LA entrada ya debe estar procesada sin SW
+
+		if( args[0].equals("centroide") ){
+
+
+	        File archivo 					= new File( args[1] );
+	 		String linea 					= ""; 
+			int totalejemplos		 		= 0;
+			ArrayList<String> listAux		= new ArrayList<String>(); 		
+	        
+	        try {
+	            Scanner scanner 						= new Scanner(archivo);
+				HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>();
+	            while (scanner.hasNextLine()) {
+
+	                linea = scanner.nextLine();
+	                String[] words2=linea.split(" ");
+
+						for (String w: Arrays.asList(words2)){
+						  Integer num=frecuencia.get(w);
+						  if (num!=null)
+						    frecuencia.put(w,num+1);
+						  else
+						    frecuencia.put(w,1);
+						}
+
+					Set set4 						= frecuencia.entrySet(); 
+					Iterator i4 					= set4.iterator(); 	
+
+					System.out.print("{");
+					while(i4.hasNext()) { 
+						Map.Entry me = (Map.Entry)i4.next(); 
+									//++validadorCountlineas;
+									//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+								
+								if(  mapStopWords.containsKey(me.getKey()  )== false  ){
+									++totalejemplos;
+									System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+								}
+					}
+					//frecuencia.clear(); lo comentamos porque debo acordarme de 
+				System.out.print("\t} \t 1/"+totalejemplos+" \n" );	 
+				//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
+
+	            } 
+	            System.out.println();
+
+	            scanner.close();
+	        } catch (FileNotFoundException e) {	 e.printStackTrace();	}
+		}// End inf op3 
+
+
+
+		///
+
+
+
+		//COPIA DE OP3 para backups
+		//En op3 dada un entrada perfecta se entrega un output en formato de centroid
+		//Este 
+
+		if( args[0].equals("op4") ){
+
+
+	        File archivo 					= new File( args[1] );
+	 		String linea 					= ""; 
+			int validadorCountlineas 		= 0;
+			ArrayList<String> listAux		= new ArrayList<String>(); 		
+	        
+
+	        try {
+	            Scanner scanner 						= new Scanner(archivo);
+				HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>();
+	            while (scanner.hasNextLine()) {
+
+	                linea = scanner.nextLine();
+	                String[] words2=linea.split(" ");
+
+						for (String w: Arrays.asList(words2)){
+						  Integer num=frecuencia.get(w);
+						  if (num!=null)
+						    frecuencia.put(w,num+1);
+						  else
+						    frecuencia.put(w,1);
+						}
+
+					Set set4 						= frecuencia.entrySet(); 
+					Iterator i4 					= set4.iterator(); 	
+
+					System.out.print("{");
+					while(i4.hasNext()) { 
+						Map.Entry me = (Map.Entry)i4.next(); 
+									//++validadorCountlineas;
+									//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+								
+								if(  mapStopWords.containsKey(me.getKey()  )== false  ){
+									//++validadorCountlineas;
+									System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+								}
+					}
+					frecuencia.clear();
+				System.out.print("\t}\n" );	 
+				//System.out.println("(Line217)Cantidad total de palabras, con frecuencia y sin StopWords: "+ countTotalFrecSinSWnolimit);
+
+	            } 
+	            System.out.println();
+
+	            scanner.close();
+	        } catch (FileNotFoundException e) {	 e.printStackTrace();	}
+	  
 
 
 
 
-
-
-
-
-
-
+		}// End inf op3 
 
 
 
