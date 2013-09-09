@@ -33,8 +33,11 @@ static String stopwordsText[]=
 
 
 
+static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 
-
+			static int totalNav					= 0;
+			static int totalInf					= 0;
+			static int totalRes 				= 0;
 
 
 
@@ -90,8 +93,6 @@ static String stopwordsText[]=
 					++countSinSW;
 				}
 		//	System.out.println("\n(Line91)Total de palabras sin Stopwords encontradas: "+ countSinSW);
-
-
 	}//End of the method
 
 
@@ -108,7 +109,62 @@ static String stopwordsText[]=
             }  
         }
         return valor;
+	}//End of method
+
+
+	public static void elodiosoRES(){
+
+
+        try {
+			Scanner sc	= new Scanner( new File( "List_RES_line_sinSW.txt" ) ) ;//RES);
+
+	 			 String linearRes					= ""; 
+	            while(     sc.hasNextLine()      ) {
+	                
+					linearRes 					= sc.nextLine();
+	                String[] words2				= linearRes.split(" ");
+
+
+	                System.out.println(  linearRes ); 
+	                
+						for (String w: Arrays.asList(words2)){
+							  Integer num=centroideInf.get(w);
+							  if (num!=null)
+							    centroideInf.put(w,num+1);
+							  else
+							    centroideInf.put(w,1);
+						}
+						
+					Set set 							= centroideInf.entrySet(); 
+					Iterator it 						= set.iterator(); 	
+						while(it.hasNext()) { 
+							Map.Entry me = (Map.Entry)it.next(); 
+									
+									if(  mapStopWords.containsKey(me.getKey()  )== false  ){ // si no es un stopword sumo un acumulado
+					
+										++totalRes;
+										//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
+									}
+						}
+						
+	
+
+	            }//while
+
+
+
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 	}
+
 
 
 /*
@@ -195,7 +251,7 @@ static String stopwordsText[]=
 								++countTotalFrecSinSW;
 								//System.out.print("<"+me.getKey() + ","+me.getValue() +">\n"); 					
 								//System.out.print(""+me.getKey() + ","+me.getValue() +"\n"); 	
-								//System.out.print(""+me.getKey()  +" \n"); 									
+								System.out.print(""+me.getKey()  +" \n"); 									
 							}		
 						}
 				} 
@@ -230,7 +286,7 @@ static String stopwordsText[]=
 
 
 
-		//En op3 dada un entrada perfecta se entrega un output en formato de CENTROIDE
+		//En esta opción  dada un entrada perfecta se entrega un output en formato de CENTROIDE
 		//LA entrada ya debe estar procesada sin SW
 
 		if( args[0].equals("centroide") ){
@@ -287,48 +343,48 @@ static String stopwordsText[]=
 		/*
 		La entrada es el listado total de palabras
 
-		Un ejemplo de llamado sería: java postagger manhattan List_NAV_line_sinSW.txt input.txt 
+		Un ejemplo de llamado sería: java postagger manhattan input.txt 
+
+		Solo se llama con la entrada
+
 		*/
 		if( args[0].equals("manhattan") ){
 
 	        File queryfiles					= new File( args[1] ); // input
 	        File archivo 					= new File( "List_NAV_line_sinSW.txt" ); // NAV
-	        File filesRES					= new File( "List_RES_line_sinSW_v2.txt" );			 //RES
+	      
 	        File filesINF					= new File( "List_INF_line_sinSW.txt" ); // IN
 
 	 		String linea 					= ""; 
-	 		String lineaRes					= ""; 
 	 		String lineainf					= ""; 
+
 	 		String lineaDeQuerys			= "";
 
 			int totalejemplos		 		= 0;
-			int totalNav					= 0;
-			int totalInf					= 0;
-			int totalRes 					= 0;
+
 			double distManhattan			= 0;
 			double distManhattanNav			= 0;
 			double distManhattanInf			= 0;
 			double distManhattanRes			= 10000;
 	        
 	        try {
-	            Scanner scanner 						= new Scanner(archivo);
-	            Scanner scannerQuerys					= new Scanner(queryfiles);
-	            Scanner scannerRes						= new Scanner(archivo);
-				Scanner scannerInf						= new Scanner(filesINF);
+	            Scanner scanner 							= new Scanner(archivo);
+	            Scanner scannerQuerys						= new Scanner(queryfiles);
+				Scanner scannerInf							= new Scanner(filesINF);
+
+				
 
 
-	            HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>(); // funciona como auxiliar
+	            HashMap<String,Integer> frecuencia 			= new HashMap<String,Integer>(); // funciona como auxiliar
+				HashMap<String,String> querysmap 			= new HashMap<String,String>();
+				HashMap<String,Integer> centroideNav 		= new HashMap<String,Integer>();
 
-
-				HashMap<String,String> querysmap 		= new HashMap<String,String>();
-				HashMap<String,Integer> centroideNav 	= new HashMap<String,Integer>();
-				HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 				HashMap<String,Integer> centroideRes		= new HashMap<String,Integer>();
 
 
 	            while(scanner.hasNextLine()) {
-	                linea 								= scanner.nextLine();
-	                String[] words2						= linea.split(" ");
+	                linea 									= scanner.nextLine();
+	                String[] words2							= linea.split(" ");
 
 					for (String w: Arrays.asList(words2)){
 						  Integer num=frecuencia.get(w);
@@ -337,8 +393,8 @@ static String stopwordsText[]=
 						  else
 						    centroideNav.put(w,1);
 					}
-					Set set4 							= centroideNav.entrySet(); 
-					Iterator i4 						= set4.iterator(); 	
+					Set set4 								= centroideNav.entrySet(); 
+					Iterator i4 							= set4.iterator(); 	
 					while(i4.hasNext()) { 
 						Map.Entry me = (Map.Entry)i4.next(); 
 									//++validadorCountlineas;
@@ -353,6 +409,8 @@ static String stopwordsText[]=
 				//frecuencia.clear();// lo comentamos porque debo acordarme de 
 				//System.out.print("\t} \t 1/"+totalejemplos+" \n" );	 
 	            }//while
+	            scanner.close();
+
 
 	            while(     scannerInf.hasNextLine()      ) {
 	                
@@ -379,68 +437,43 @@ static String stopwordsText[]=
 									}
 						}					
 	            }//while
-
-/*
-	            while(     scannerRes.hasNextLine()      ) {
-	                
-					lineainf 								= scannerRes.nextLine();
-	                String[] words2							= lineainf.split(" ");
-
-						for (String w: Arrays.asList(words2)){
-							  Integer num=frecuencia.get(w);
-							  if (num!=null)
-							    frecuencia.put(w,num+1);
-							  else
-							    frecuencia.put(w,1);
-						}
-
-					Set set4 							= frecuencia.entrySet(); 
-					Iterator i4 						= set4.iterator(); 	
-						while(i4.hasNext()) { 
-							Map.Entry me = (Map.Entry)i4.next(); 
-									
-									if(  mapStopWords.containsKey(me.getKey()  )== false  ){ // si no es un stopword sumo una frecuencia
-										++totalejemplos;
-										++totalInf;
-										//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
-									}
-						}					
-	            }//while
-
-*/
+	           	scannerInf.close();
 
 
+	
+				//llamar el mañoso
+	           	//fucking metodo que no se dejaba llamar desde aqui
 
-
-
-
+	           	elodiosoRES();
 
 
 				//primer intento de calculo de manhattan
 					System.out.println( " totalejemplos "+totalejemplos );
 					System.out.println( " total INF "+totalInf );
 					System.out.println( " total NAV "+totalNav );
-				 	System.out.println( " total RES " );
+				 	System.out.println( " total RES " +totalRes);
+
+					double a = distManhattanNav;
+					double b = distManhattanInf;
+					double c = distManhattanRes;
 
 
 				while(  scannerQuerys.hasNextLine()  ){
 
 					lineaDeQuerys 					= scannerQuerys.nextLine();
 					String []querys 				= lineaDeQuerys.split(" ");
-
 					double frec  					= 0;					
 					double cociente					= 0;	
 
-					for(int i=0; i< querys.length-1; i++){ 
 
+
+					for(int i=0; i< querys.length-1; i++){ 
 
 						if( centroideNav.containsKey( querys[i] ) ){
 
 							frec   	= (double)centroideNav.get( querys[i] );
 							cociente = frec  /(double)totalNav;
 							//System.out.println( querys[i]+ "  "+frec );	
-
-
 							//querysmap.put( querys[i],1 );
 
 							distManhattanNav = distManhattanNav + Math.abs(  cociente - 1           );							
@@ -459,101 +492,42 @@ static String stopwordsText[]=
 						}else{	distManhattanInf = distManhattanInf + Math.abs(  cociente );	}
 
 
+						if( centroideRes.containsKey( querys[i] ) ){
+							
+
+							frec   	= (double)centroideRes.get( querys[i] );
+							cociente = frec  /(double)totalInf;
+							//System.out.println( querys[i]+ "  "+frec );	
+							//querysmap.put( querys[i],1 );
+							distManhattanRes = distManhattanInf + Math.abs(  cociente - 1           );
+
+						}else{	distManhattanRes = distManhattanInf + Math.abs(  cociente );	}
 
 
-						double a = distManhattanNav;
-						double b = distManhattanInf;
-						double c = distManhattanRes;
 
-
-						System.out.println(  "El menor es :" +elMenor(a,b,c) );
 
 
 					}//end for
+											
+					if( a == elMenor(a,b,c)){ 	//System.out.println(  "El menor es NAV:" +elMenor(a,b,c) );
+				}
+					if( b == elMenor(a,b,c)){	//System.out.println(  "El menor es INF:" +elMenor(a,b,c) );
+				}	
+					if( c == elMenor(a,b,c)){	//System.out.println(  "El menor es RES:" +elMenor(a,b,c) );
+				}					
+
 				} System.out.println();
+
 				System.out.println( " distance distManhattanInf "+ distManhattanInf );
 				System.out.println( " distance distManhattanNav "+ distManhattanNav );
 				System.out.println( " distance distManhattanNav "+ distManhattanRes );
 
 
-	            scanner.close();
-	        } catch (FileNotFoundException e) {	 e.printStackTrace();	}
-		
-		/*
-	        try {
-	            Scanner scanner 						= new Scanner(archivo);
-	            Scanner scannerQuerys					= new Scanner(queryfiles);
-				HashMap<String,Integer> frecuencia 		= new HashMap<String,Integer>();
-				HashMap<String,Integer> querysmap 		= new HashMap<String,Integer>();
-
-
-	            while (scanner.hasNextLine()) {
-
-	                linea2 								= scanner.nextLine();
-	                String[] words2						= linea2.split(" ");
-
-					for (String w: Arrays.asList(words2)){
-						  Integer num=frecuencia.get(w);
-						  if (num!=null)
-						    frecuencia.put(w,num+1);
-						  else
-						    frecuencia.put(w,1);
-					}
-
-					Set set4 							= frecuencia.entrySet(); 
-					Iterator i4 						= set4.iterator(); 	
-
-					//System.out.print("{");
-					while(i4.hasNext()) { 
-						Map.Entry me = (Map.Entry)i4.next(); 
-									//++validadorCountlineas;
-									//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
-								
-								if(  mapStopWords.containsKey(me.getKey()  )== false  ){
-									++totalejemplos;
-									//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;");
-								}
-					}
-					//frecuencia.clear(); lo comentamos porque debo acordarme de 
-				//System.out.print("\t} \t 1/"+totalejemplos+" \n" );	 
 			
-	            }
-
-				double distManhattan=0;
-
-				while(  scannerQuerys.hasNextLine()  ){
-
-					lineaDeQuerys 					= scannerQuerys.nextLine();
-					String []querys 				= lineaDeQuerys.split(" ");
-
-					
-					//DEBUG VALUES
-
-					//System.out.println( " totalejemplos "+totalejemplos );
-
-					for(int i=0; i< querys.length; i++){ 
-						System.out.println( querys[i] );
-
-						double cociente = 1/ (double)totalejemplos;
-						double frec 	= (double)frecuencia.get( querys[i] );
-						
-						if( frecuencia.containsKey( querys[i] ) ){
-							querysmap.put( querys[i],1 );
-							//System.out.println( querys[i] ); (Integer)frecuencia.get( querys[i] )
-
-							distManhattan = distManhattan + Math.abs(  cociente*frec - 1           );
-
-						}else{
-							distManhattan = distManhattan + Math.abs(  cociente*frec - 0          );
-						}
-					}System.out.println( " distManhattan "+ distManhattan );
-
-				} System.out.println();
-
-	            scanner.close();
+	            scannerQuerys.close();
 	        } catch (FileNotFoundException e) {	 e.printStackTrace();	}
 		
-*/
+
 
 		}// End if manhattan
 
@@ -626,6 +600,7 @@ static String stopwordsText[]=
 	            } 
 	            System.out.println();
 
+
 	            scanner.close();
 	        } catch (FileNotFoundException e) {	 e.printStackTrace();	}
 	  
@@ -663,10 +638,7 @@ static String stopwordsText[]=
 
 		if( args[0].equals( "help") ){
 
-				System.out.println( "WAZEEEE" );
-
-
-		}
+				System.out.println( "WAZEEEE" );}
 
 
 
@@ -692,9 +664,7 @@ static String stopwordsText[]=
 
 
 /*
-*
 *	This return a count of some pattern in a text
-*
 */
 public static int conteoPatron(String cadena, String patron){
 
@@ -702,9 +672,7 @@ public static int conteoPatron(String cadena, String patron){
 			
 		while((start = cadena.indexOf(patron, start+=len)) > -1) count++;
 				return count;
-	
-
-}
+}//endMethod
 
 
 
@@ -742,15 +710,9 @@ public static void printFrecuencia( String data ){
 
 				} 
 			System.out.println(); 
+}//endMethod
 
 
 
 
-}
-
-
-
-
-}
-
-
+}// End of class
