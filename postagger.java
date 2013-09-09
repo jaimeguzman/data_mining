@@ -33,12 +33,15 @@ static String stopwordsText[]=
 
 
 
-static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
-
-			static int totalNav					= 0;
-			static int totalInf					= 0;
-			static int totalRes 				= 0;
-
+			static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
+			static HashMap<String,Integer> centroideNav 		= new HashMap<String,Integer>();
+			static HashMap<String,Integer> centroideRes			= new HashMap<String,Integer>();
+			static int totalNav									= 0;
+			static int totalInf									= 0;
+			static int totalRes 								= 0;
+			static double a 									= 0;
+			static double b 									= 0;
+			static double c 									= 0;
 
 
 	public static void cleanTextSW ( String filepath){
@@ -125,7 +128,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 	                String[] words2				= linearRes.split(" ");
 
 
-	                System.out.println(  linearRes ); 
+//	                System.out.println(  linearRes ); 
 	                
 						for (String w: Arrays.asList(words2)){
 							  Integer num=centroideInf.get(w);
@@ -211,7 +214,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 			    frequencies.put(w,1);
 			}
 	
-			//			System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
+						System.out.println("(Line149) Listado total de frecuencia de palabras : \n");
 
 			Set set = frequencies.entrySet(); 
 			// Get an iterator 
@@ -221,7 +224,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 				while(i.hasNext()) { 
 					Map.Entry me = (Map.Entry)i.next(); 
 						if( (Integer)me.getValue() > 1){  //System.out.println("EO");
-			//			System.out.print(me.getKey() + ": \t\t"+me.getValue() +"\n"); 						
+						System.out.print(me.getKey() + ": \t\t"+me.getValue() +"\n"); 						
 						++countTotalFrec;
 						 }
 
@@ -233,7 +236,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			//			System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
+						//System.out.println("(Line172) Listado de frecuencia de palabras sin StopWords:");
 
 			Set set2 = frequencies.entrySet(); 
 			// Get an iterator 
@@ -249,9 +252,9 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 
 							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
 								++countTotalFrecSinSW;
-								//System.out.print("<"+me.getKey() + ","+me.getValue() +">\n"); 					
-								//System.out.print(""+me.getKey() + ","+me.getValue() +"\n"); 	
-								System.out.print(""+me.getKey()  +" \n"); 									
+								System.out.print("<"+me.getKey() + ","+me.getValue() +">\n"); 					
+								System.out.print(""+me.getKey() + ","+me.getValue() +"\n"); 	
+								//System.out.print(""+me.getKey()  +" \n"); 									
 							}		
 						}
 				} 
@@ -270,11 +273,11 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 					Map.Entry me = (Map.Entry)i3.next(); 
 
 				
-							if(  mapStopWords.containsKey(me.getKey()  )== false  ){
+							if(  mapStopWords.containsKey(me.getKey()  )== false && (Integer)me.getValue() > 0 ){
 								++countTotalFrecSinSWnolimit;
 								//Para converitr a vector
 								//System.out.print("<"+me.getKey() + ", "+me.getValue() +">;\n");
-								//System.out.print(me.getKey() +" ");  		
+								//System.out.println(me.getKey() +" "+me.getValue());  		
 							}			
 				}
 			//System.out.print("}");	 
@@ -351,13 +354,10 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 		if( args[0].equals("manhattan") ){
 
 	        File queryfiles					= new File( args[1] ); // input
-	        File archivo 					= new File( "List_NAV_line_sinSW.txt" ); // NAV
-	      
-	        File filesINF					= new File( "List_INF_line_sinSW.txt" ); // IN
+
 
 	 		String linea 					= ""; 
 	 		String lineainf					= ""; 
-
 	 		String lineaDeQuerys			= "";
 
 			int totalejemplos		 		= 0;
@@ -365,22 +365,16 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 			double distManhattan			= 0;
 			double distManhattanNav			= 0;
 			double distManhattanInf			= 0;
-			double distManhattanRes			= 10000;
+			double distManhattanRes			= 0;
 	        
 	        try {
-	            Scanner scanner 							= new Scanner(archivo);
+
 	            Scanner scannerQuerys						= new Scanner(queryfiles);
-				Scanner scannerInf							= new Scanner(filesINF);
-
-				
-
+	            Scanner scanner 							= new Scanner( new File( "List_NAV_line_sinSW.txt" ) );
+				Scanner scannerInf							= new Scanner( new File( "List_INF_line_sinSW.txt" ) );
 
 	            HashMap<String,Integer> frecuencia 			= new HashMap<String,Integer>(); // funciona como auxiliar
-				HashMap<String,String> querysmap 			= new HashMap<String,String>();
-				HashMap<String,Integer> centroideNav 		= new HashMap<String,Integer>();
-
-				HashMap<String,Integer> centroideRes		= new HashMap<String,Integer>();
-
+				HashMap<String,String>  querysmap 			= new HashMap<String,String>();
 
 	            while(scanner.hasNextLine()) {
 	                linea 									= scanner.nextLine();
@@ -453,9 +447,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 					System.out.println( " total NAV "+totalNav );
 				 	System.out.println( " total RES " +totalRes);
 
-					double a = distManhattanNav;
-					double b = distManhattanInf;
-					double c = distManhattanRes;
+
 
 
 				while(  scannerQuerys.hasNextLine()  ){
@@ -503,25 +495,52 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 
 						}else{	distManhattanRes = distManhattanInf + Math.abs(  cociente );	}
 
+					 		a 	= distManhattanNav;
+							b 	= distManhattanInf;
+							c   = distManhattanRes;
 
+							//System.out.println( "a: "+a+"  b "+b+" "+c);
+
+						if( a == elMenor(a,b,c)){ 	
+							//System.out.println(  "El menor es NAV:" +elMenor(a,b,c) );
+							querysmap.put(querys[i],"NAV");
+							}
+						if( b == elMenor(a,b,c)){	
+							//System.out.println(  "El menor es INF:" +elMenor(a,b,c) );
+							querysmap.put(querys[i],"INF");
+							}	
+						if( c == elMenor(a,b,c)){	
+							//System.out.println(  "El menor es RES:" +elMenor(a,b,c) );
+							querysmap.put(querys[i],"RES");
+
+							}
 
 
 
 					}//end for
 											
-					if( a == elMenor(a,b,c)){ 	//System.out.println(  "El menor es NAV:" +elMenor(a,b,c) );
-				}
-					if( b == elMenor(a,b,c)){	//System.out.println(  "El menor es INF:" +elMenor(a,b,c) );
-				}	
-					if( c == elMenor(a,b,c)){	//System.out.println(  "El menor es RES:" +elMenor(a,b,c) );
-				}					
+					
 
-				} System.out.println();
+				}//End While 
+				System.out.println();
 
-				System.out.println( " distance distManhattanInf "+ distManhattanInf );
-				System.out.println( " distance distManhattanNav "+ distManhattanNav );
-				System.out.println( " distance distManhattanNav "+ distManhattanRes );
+				System.out.println( " distance distManhattanINF "+ distManhattanInf );
+				System.out.println( " distance distManhattanNAV "+ distManhattanNav );
+				System.out.println( " distance distManhattanRES "+ distManhattanRes );
 
+
+
+				Set set 							= querysmap.entrySet(); 
+				Iterator iter 						= set.iterator(); 	
+						while(iter.hasNext()) { 
+							Map.Entry me = (Map.Entry)iter.next(); 
+									
+									//if(  mapStopWords.containsKey(me.getKey()  )== false  ){ }// si no es un stopword sumo una frecuencia
+										//++totalejemplos;
+										//++totalInf;
+										System.out.print(" "+me.getKey() + ", \t"+me.getValue() +" \n");
+									
+						}		
 
 			
 	            scannerQuerys.close();
@@ -551,7 +570,7 @@ static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
 
 
 		//COPIA DE OP3 para backups
-		//En op3 dada un entrada perfecta se entrega un output en formato de centroid
+		//En op4 dada un entrada perfecta se entrega un output en formato de centroid
 		//Este 
 
 		if( args[0].equals("op4") ){
@@ -711,6 +730,10 @@ public static void printFrecuencia( String data ){
 				} 
 			System.out.println(); 
 }//endMethod
+
+
+
+
 
 
 
