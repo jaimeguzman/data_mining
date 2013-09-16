@@ -16,7 +16,7 @@ public class TutorialKNN {
 
         /* Load a data set */
     	
-        Dataset data = FileHandler.loadDataset(new File("/Users/jaimeguzman/github_local_repo/datamining/DataMining_course/tarea2.class/stanford-postagger/tarea3/iris.data"), 4, ",");
+        Dataset data = FileHandler.loadDataset(new File("/Users/jaimeguzman/github_local_repo/datamining/DataMining_course/tarea2.class/stanford-postagger/tarea3iris.data"), 4, ",");
         /*
          * Contruct a KNN classifier that uses 5 neighbors to make a decision.
          */

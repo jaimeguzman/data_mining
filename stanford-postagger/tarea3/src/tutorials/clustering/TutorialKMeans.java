@@ -57,6 +57,10 @@ public class TutorialKMeans {
         Dataset[] clusters = km.cluster(data);
         System.out.println("Cluster count: " + clusters.length);
 
+        
+        
+        
+        
     }
 
 }

@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=tarea3/lib\/javaml-0.1.7\/javaml-0.1.7.jar&lt;net.sf.javaml.tools(DatasetTools.class[DatasetTools" modifiers="49" timestamp="1379004847000"/>
-<typeInfo handle="=tarea3/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.lang(Object.class[Object" modifiers="33" timestamp="1371244288000"/>
-<typeInfo handle="=tarea3/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.io(Serializable.class[Serializable" modifiers="1537" timestamp="1371244288000"/>
-<typeInfo handle="=tarea3/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.lang(Cloneable.class[Cloneable" modifiers="1537" timestamp="1371244288000"/>
-<typeInfo handle="=tarea3/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.lang(Iterable.class[Iterable" modifiers="1537" timestamp="1371244288000"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>
