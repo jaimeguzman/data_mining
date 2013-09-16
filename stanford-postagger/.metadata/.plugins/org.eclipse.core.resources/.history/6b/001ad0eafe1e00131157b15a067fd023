@@ -1,0 +1,103 @@
+/**
+ * 
+ * import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+ */
+
+
+/*
+import net.sf.javaml.*;
+import net.sf.javaml.core.*;
+
+
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.InstanceTools;
+import net.sf.javaml.clustering.*;
+import net.sf.javaml.clustering.evaluation.*;
+*/
+
+import java.io.File;
+import java.io.IOException;
+
+import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.KMeans;
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.tools.data.FileHandler;
+
+import net.sf.javaml.core.DenseInstance;
+import net.sf.javaml.core.Instance;
+
+import java.util.*; 
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	private static Dataset data;
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 */
+	
+	public static void main(String[] args) throws Exception  {
+		
+		String line = " ";
+        File f = new File("iris.data");
+        
+        try {
+            Scanner scanner = new Scanner( f );
+            while (scanner.hasNextLine()) {
+            	//Hay que procesar la linea para poder quitar las stop words
+                line = scanner.nextLine();
+                //cleanTextSW( line );
+                //System.out.println(line );
+            }
+
+            scanner.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+
+        /* values of the attributes. */
+        double[] values = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        /*
+         * The simplest incarnation of the DenseInstance constructor will only
+         * take a double array as argument an will create an instance with given
+         * values as attributes and no class value set. For unsupervised machine
+         * learning techniques this is probably the most convenient constructor.
+         */
+        Instance instance = new DenseInstance(values);
+
+        System.out.println("Instance with only values set: ");
+        System.out.println(instance);
+        System.out.println();
+        /*
+         * To create instances that have a class value set, you can use the two
+         * argument constructor which takes the values and the class value as
+         * parameters.
+         */
+        Instance instanceWithClassValue = new DenseInstance(values, 1);
+
+        System.out.println("Instance with class value set to 1: ");
+        System.out.println(instanceWithClassValue);
+        System.out.println();  
+
+	
+	
+	}
+	
+	
+
+
+
+
+}

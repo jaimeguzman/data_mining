@@ -1,0 +1,65 @@
+/**
+ * 
+ * import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+ */
+
+import net.sf.javaml.*;
+import net.sf.javaml.core.*;
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.tools.data.FileHandler;
+import java.util.*; 
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList; 
+import java.util.Collections; 
+import java.util.HashMap; 
+import java.lang.Math;
+
+
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 * @throws FileNotFoundException 
+	 */
+	public static void main(String[] args) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+
+		File testf= new File( "List_RES_line_sinSW.txt" );	
+		Scanner sc	= new Scanner( testf ) ; 
+		
+		if( testf.exists() ){
+			System.out.println( "ola k ace");
+			
+		} 
+		
+		
+        while(     sc.hasNextLine()      ) {
+            
+			String line					= sc.nextLine();
+            String[] words2				= line.split(" ");
+        
+        System.out.println( line );
+        
+        
+        }
+		
+		
+		FileHandler fh = new FileHandler() ;
+		DefaultDataset dt = new DefaultDataset();
+		
+	}
+	
+	
+
+}

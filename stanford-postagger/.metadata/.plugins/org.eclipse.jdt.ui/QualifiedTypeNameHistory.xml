@@ -4,4 +4,6 @@
 <fullyQualifiedTypeName name="edu.stanford.nlp.ling.HasWord"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.ling.TaggedWord"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.ling.Sentence"/>
+<fullyQualifiedTypeName name="net.sf.javaml.clustering.evaluation.SumOfSquaredErrors"/>
+<fullyQualifiedTypeName name="net.sf.javaml.tools.data.FileHandler"/>
 </qualifiedTypeNameHistroy>

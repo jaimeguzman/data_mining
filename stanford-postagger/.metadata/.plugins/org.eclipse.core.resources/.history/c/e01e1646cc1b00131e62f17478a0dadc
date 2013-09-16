@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+
+
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ItemSet itejemplo = new ItemSet(10);
+		
+		
+		
+	
+		System.out.println("hola");
+	}
+	
+	
+
+}

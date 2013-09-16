@@ -1,0 +1,156 @@
+/**
+ * 
+ * import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+ */
+
+
+/*
+import net.sf.javaml.*;
+import net.sf.javaml.core.*;
+
+
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.InstanceTools;
+import net.sf.javaml.clustering.*;
+import net.sf.javaml.clustering.evaluation.*;
+*/
+
+import java.util.*; 
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.ArrayList; 
+import java.util.Collections; 
+import java.util.HashMap; 
+import java.lang.Math;
+
+
+
+import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.KMeans;
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.tools.data.FileHandler;
+
+import net.sf.javaml.core.DenseInstance;
+import net.sf.javaml.core.Instance;
+
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	private static Dataset data;
+	static HashMap<String,Integer> centroideInf 		= new HashMap<String,Integer>();
+	static HashMap<String,Integer> centroideNav 		= new HashMap<String,Integer>();
+	static HashMap<String,Integer> centroideRes			= new HashMap<String,Integer>();
+	static int totalNav									= 0;
+	static int totalInf									= 0;
+	static int totalRes 								= 0;
+	static double a 									= 0;
+	static double b 									= 0;
+	static double c 									= 0;
+
+	
+
+	static String[] posTaggerTags = 
+	{"_CC", "_CD", "_DT", "_EX", "_FW", "_IN", "_JJ", "_JJR", "_JJS", "_LS", "_MD", 
+	"_NN", "_NNS", "_NNP", "_NNPS", "_PDT", "_POS", "_PRP", "_PRP$", "_RB", "_RBR", "_RBS", "_RP", "_SYM", 
+	"_TO", "_UH", "_VB", "_VBD", "_VBG", "_VBN", "_VBP", "_VBZ", "_WDT", "_WP", "_WP$", "_WRB" };
+
+	static String stopwordsText[]=
+	{"a", "about", "above", "above", "across", "after", "afterwards", 
+		"again", "against", "all", "almost", "alone", "along", "already", 
+		"also","although","always","am","among", "amongst", "amoungst", "amount",  
+		"an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", 
+		"are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", 
+		"been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", 
+		"beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", 
+		"couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", 
+		"either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", 
+		"everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", 
+		"found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", 
+		"hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "ie", "if", "in", 
+		"inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", 
+		"may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", 
+		"neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", 
+		"once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", 
+		"rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", 
+		"some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", 
+		"them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin",
+		"third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", 
+		"twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"};
+
+	
+	
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 */
+	
+	
+	
+	
+	public static void main(String[] args) throws Exception  {
+		
+		String line = " ";
+        File f = new File("iris.data");
+        
+        try {
+            Scanner scanner = new Scanner( f );
+            while (scanner.hasNextLine()) {
+            	//Hay que procesar la linea para poder quitar las stop words
+                line = scanner.nextLine();
+                //cleanTextSW( line );
+                //System.out.println(line );
+            }
+
+            scanner.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+
+        /* values of the attributes. */
+        double[] values = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        /*
+         * The simplest incarnation of the DenseInstance constructor will only
+         * take a double array as argument an will create an instance with given
+         * values as attributes and no class value set. For unsupervised machine
+         * learning techniques this is probably the most convenient constructor.
+         */
+        Instance instance = new DenseInstance(values);
+
+        System.out.println("Instance with only values set: ");
+        System.out.println(instance);
+        System.out.println();
+        /*
+         * To create instances that have a class value set, you can use the two
+         * argument constructor which takes the values and the class value as
+         * parameters.
+         */
+        Instance instanceWithClassValue = new DenseInstance(values, 1);
+
+        System.out.println("Instance with class value set to 1: ");
+        System.out.println(instanceWithClassValue);
+        System.out.println();  
+
+	
+	
+	}
+	
+	
+
+
+
+
+}

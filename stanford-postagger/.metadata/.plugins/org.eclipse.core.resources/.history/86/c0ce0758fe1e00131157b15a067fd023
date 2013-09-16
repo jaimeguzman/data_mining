@@ -1,0 +1,24 @@
+
+import net.sf.javaml.core.*;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.core.DenseInstance;
+import net.sf.javaml.core.Instance;
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class testDatos {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Instance map = new HashMap();
+		
+		
+	}
+
+}

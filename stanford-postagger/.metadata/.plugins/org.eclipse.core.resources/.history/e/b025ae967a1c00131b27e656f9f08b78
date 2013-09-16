@@ -1,0 +1,82 @@
+/**
+ * 
+ * import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+ */
+
+import net.sf.javaml.*;
+import net.sf.javaml.core.*;
+
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.InstanceTools;
+import net.sf.javaml.clustering.*;
+import net.sf.javaml.clustering.KMeans;
+
+import java.util.*; 
+import java.io.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList; 
+import java.util.Collections; 
+import java.util.HashMap; 
+import java.util.Set;
+import java.util.SortedSet;
+import java.lang.Math;
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 * @throws FileNotFoundException 
+	 */
+	public static void main(String[] args) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+
+
+        
+        Dataset data = new DefaultDataset();
+        for (int i = 0; i < 3000; i++) {
+            Instance tmpInstance = InstanceTools.randomInstance(25);
+            data.add(tmpInstance);
+        }
+        /* Retrieve all class values that are ever used in the data set */
+        SortedSet<Object> classValues = data.classes();
+        
+        
+        
+        System.out.println( "llega hasa acaaaa.:...\n"  );
+        System.out.println( data.isEmpty()    );
+        System.out.println( data.size()    );
+        
+        Iterator itr = data.iterator();
+        while(itr.hasNext()) {
+           Object element = itr.next();
+           System.out.print(element + " \n ");
+        }
+        System.out.println();
+        
+	
+        KMeans k = new KMeans( 3 , 10);
+        
+         
+        k.cluster( data );
+        
+}
+	
+
+
+
+
+}

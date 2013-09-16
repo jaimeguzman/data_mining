@@ -1,0 +1,13 @@
+package tutorials.clustering;
+
+public class TutorialKMeans {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

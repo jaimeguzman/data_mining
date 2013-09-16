@@ -1,0 +1,49 @@
+/**
+ * 
+ * import weka.associations.*;
+import weka.core.*;
+import weka.clusterers.*;
+ */
+
+import net.sf.javaml.*;
+import net.sf.javaml.tools.data.FileHandler;
+import java.util.*; 
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList; 
+import java.util.Collections; 
+import java.util.HashMap; 
+import java.lang.Math;
+
+
+
+
+/**
+ * @author jaimeguzman
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		File testf= new File( "List_RES_line_sinSW.txt" );	
+		
+		
+		FileHandler fh = new FileHandler( testf ) ;
+		
+		
+		
+		
+	
+		System.out.println("hola");
+	}
+	
+	
+
+}
